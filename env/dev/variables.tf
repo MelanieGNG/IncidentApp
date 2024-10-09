@@ -37,11 +37,3 @@ variable "DOMAIN" {
   type = string
 }
 
-variable "SSH_PRIVATE_KEY" {
-  type = string
-}
-
-variable "SSH_PUBLIC_KEY" {
-  type = string  
-}
-
