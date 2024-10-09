@@ -23,5 +23,3 @@ module "dev_vm" {
   vnet_name                = "IN_VNET-MelanieGNG"
 }
 
-
-
