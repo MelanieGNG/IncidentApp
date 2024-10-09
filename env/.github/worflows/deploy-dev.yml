@@ -7,21 +7,26 @@ on:
         - 'env/dev/**'
         - 'modules/**'
 
+permissions:
+  id-token: write
+  contents: read
+  pull-request: write
+
 env:
   ARM_CLIENT_ID: "${{secrets.ARM_CLIENT_ID}}"
   ARM_CLIENT_SECRET: "${{secrets.ARM_CLIENT_SECRET}}"
   ARM_SUBSCRIPTION_ID: "${{secrets.ARM_SUBSCRIPTION_ID}}"
   ARM_TENANT_ID: "${{secrets.ARM_TENANT_ID}}"
-  TF_VAR_mongo_url: "${{secrets.TF_VAR_mongo_url}}"
-  TF_VAR_port: "${{secrets.TF_VAR_port}}"
-  TF_VAR_mongo_db: "${{secrets.TF_VAR_mongo_db}}"
-  TF_VAR_mail_secret_key: "${{secrets.TF_VAR_mail_secret_key}}"
-  TF_VAR_mapbox_access_token: "${{secrets.TF_VAR_mapbox_access_token}}"
-  TF_VAR_mail_service: "${{secrets.TF_VAR_mail_service}}"
-  TF_VAR_mail_user: "${{secrets.TF_VAR_mail_user}}"
-  TF_VAR_init_root_username: "${{secrets.TF_VAR_init_root_username}}"
-  TF_VAR_init_root_password: "${{secrets.TF_VAR_init_root_password}}"
-  TF_VAR_domain: "${{secrets.TF_VAR_domain}}"
+  TF_VAR_MONGO_URL: "${{secrets.TF_VAR_MONGO_URL}}"
+  TF_VAR_PORT: "${{secrets.TF_VAR_PORT}}"
+  TF_VAR_MONGO_DB: "${{secrets.TF_VAR_MONGO_DB}}"
+  TF_VAR_MAIL_SECRET_KEY: "${{secrets.TF_VAR_MAIL_SECRET_KEY}}"
+  TF_VAR_MAPBOX_ACCESS_TOKEN: "${{secrets.TF_VAR_MAPBOX_ACCESS_TOKEN}}"
+  TF_VAR_MAIL_SERVICE: "${{secrets.TF_VAR_MAIL_SERVICE}}"
+  TF_VAR_MAIL_USER: "${{secrets.TF_VAR_MAIL_USER}}"
+  TF_VAR_MONGO_INITDB_ROOT_PASSWORD: "${{secrets.TF_VAR_MONGO_INITDB_ROOT_PASSWORD}}"
+  TF_VAR_MONGO_INITDB_ROOT_USERNAME: "${{secrets.TF_VAR_MONGO_INITDB_ROOT_USERNAME}}"
+  TF_VAR_DOMAIN: "${{secrets.TF_VAR_DOMAIN}}"
 
   
   
@@ -44,7 +49,7 @@ jobs:
                 chmod 777 ./env/dev/keys/712incident_server.pub
 
             - name: Terraform setup
-              uses: hashicorp/terraform@v2
+              uses: hashicorp/setup-terraform@v2
               with:
                 terraformm_version: 1.9.6
                 terraform_wrapper: false
