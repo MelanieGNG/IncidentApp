@@ -1,11 +1,6 @@
 name: Deploy Dev Infrastructure
 on:
-    push:
-        branches:
-            - main
-        paths:
-            - 'env/dev/**'
-            - 'modules/**'
+    workflow_dispatch:
  
 permissions:
   id-token: write
@@ -32,31 +27,9 @@ jobs:
     terraform-plan-apply:
         runs-on: ubuntu-latest
         steps:
-            - name: Clone repository
-              uses: actions/checkout@v4
-            
-            - name: Create SSH Keys from secrets
-              run: |
-                mkdir -p ./env/dev/keys
-                echo "${{ secrets.SSH_PRIVATE_KEY }}" > ./env/dev/keys/712incident_server
-                echo "${{ secrets.SSH_PUBLIC_KEY }}" > ./env/dev/keys/712incident_server.pub
-                chmod 777 ./env/dev/keys/712incident_server
-                chmod 777 ./env/dev/keys/712incident_server.pub
-              
-            - name: Terraform setup
-              uses: hashicorp/setup-terraform@v2
-              with:
-                terraform_version: 1.9.2
-                terraform_wrapper: false
             
             - name: Terraform init
               run: terraform -chdir=env/dev init
- 
-            - name: Terraform format
-              run: terraform -chdir=env/dev fmt
- 
-            - name: Terraform plan
-              run: terraform -chdir=env/dev plan
 
-            - name: Terraform apply
-              run: terraform -chdir=env/dev apply --auto-approve
+            - name: Terraform destroy
+              run: terraform -chdir=env/dev destroy --auto-approve
